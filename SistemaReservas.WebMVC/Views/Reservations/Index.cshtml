@@ -1,0 +1,64 @@
+@model IEnumerable<SistemaReservas.WebMVC.Models.ApiDTOs.ReservationDto>
+@{
+    ViewData["Title"] = "Mis Reservas";
+}
+
+<div class="reservations-container">
+    <h2>Mis Reservas</h2>
+
+    @if (!Model.Any())
+    {
+        <div class="empty-state">
+            <p>No tienes reservas activas.</p>
+            <a asp-controller="Zones" asp-action="Index" class="btn-primary">Explorar Zonas</a>
+        </div>
+    }
+    else
+    {
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Zona</th>
+                        <th>Inicio</th>
+                        <th>Fin</th>
+                        <th>Estado</th>
+                        <th>Tipo Evento</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var res in Model.OrderBy(r => r.StartTime))
+                    {
+                        var statusClass = res.StatusName.ToLower() switch
+                        {
+                            "confirmada" => "status-confirmed",
+                            "pendiente" => "status-pending",
+                            "cancelada" => "status-cancelled",
+                            _ => ""
+                        };
+
+                        <tr>
+                            <td>@res.ZoneName</td>
+                            <td>@res.StartTime.ToString("dd/MM/yyyy HH:mm")</td>
+                            <td>@res.EndTime.ToString("dd/MM/yyyy HH:mm")</td>
+                            <td><span class="status-badge @statusClass">@res.StatusName</span></td>
+                            <td>@res.EventTypeName</td>
+                            <td>
+                                @if (res.StatusName != "Cancelada")
+                                {
+                                    <form asp-action="Cancel" asp-route-id="@res.Id" method="post" class="cancel-form">
+                                        @Html.AntiForgeryToken()
+                                        <button type="submit" class="btn-danger btn-sm" onclick="return confirm('¿Seguro que deseas cancelar esta reserva?');">
+                                            Cancelar
+                                        </button>
+                                    </form>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+</div>

@@ -1,0 +1,44 @@
+@model SistemaReservas.WebMVC.Models.ViewModels.RegisterViewModel
+@{
+    ViewData["Title"] = "Registro";
+}
+
+<div class="auth-container">
+    <div class="auth-card">
+        <h2>Crear Cuenta</h2>
+
+        <div asp-validation-summary="ModelOnly" class="text-danger error-message"></div>
+
+        <form asp-action="Register" method="post">
+            <div class="form-group">
+                <input asp-for="FirstName" class="form-control" placeholder="Nombre" required />
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input asp-for="LastName" class="form-control" placeholder="Apellido" required />
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input asp-for="Email" class="form-control" placeholder="Correo electrónico" required />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group">
+                <input asp-for="Password" type="password" class="form-control" placeholder="Contraseña" required />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            
+            <button type="submit" class="btn-primary">Registrarse</button>
+        </form>
+
+        <p class="auth-link">
+            ¿Ya tienes cuenta? <a asp-action="Login">Inicia sesión aquí</a>
+        </p>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

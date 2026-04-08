@@ -1,0 +1,57 @@
+## [ .NET / VISUAL STUDIO ]
+# Resultados de compilación
+[Dd]ebug/
+[Rr]elease/
+[Oo]bj/
+[Bb]in/
+
+# Archivos específicos de usuario y caché
+.vs/
+*.user
+*.suo
+*.sln.docstates
+*.slnLaunch.user
+*.DotSettings.user
+.librarymanager.json
+
+# Archivos temporales y bloqueos de NuGet
+project.lock.json
+*.nupkg
+
+## [ ASP.NET CORE ]
+# Ignora configuraciones de entorno excepto la base y desarrollo
+appsettings.*.json
+!appsettings.json
+!appsettings.Development.json
+
+## [ REACT / NODE.JS ]
+node_modules/
+build/
+dist/
+.env*.local
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.eslintcache
+
+## [ BASES DE DATOS ]
+# Previene subir archivos de datos locales pesados
+*.mdf
+*.ldf
+*.db
+*.sqlite
+*.sqlite-journal
+
+## [ SISTEMA Y EDITORES ]
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+*.bak
+
+## [ otros ]
+.instructions/
+.context/
+*.ai
+*.log

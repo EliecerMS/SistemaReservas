@@ -1,0 +1,60 @@
+@model SistemaReservas.WebMVC.Models.ApiDTOs.CreateReservationDto
+@{
+    ViewData["Title"] = "Reservar Zona";
+    var zone = ViewBag.Zone as SistemaReservas.WebMVC.Models.ApiDTOs.ZoneDto;
+}
+
+<div class="reserve-container">
+    <div class="reserve-card">
+        <h2>Reservar @zone?.Name</h2>
+        
+        <div asp-validation-summary="ModelOnly" class="text-danger error-message"></div>
+
+        <form asp-action="Create" method="post">
+            <input type="hidden" asp-for="ZoneId" />
+
+            <div class="form-row">
+                <div class="form-group col">
+                    <label>Hora de Inicio</label>
+                    <input asp-for="StartTime" class="form-control" type="datetime-local" required />
+                    <span asp-validation-for="StartTime" class="text-danger"></span>
+                </div>
+                <div class="form-group col">
+                    <label>Hora de Fin</label>
+                    <input asp-for="EndTime" class="form-control" type="datetime-local" required />
+                    <span asp-validation-for="EndTime" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Asistentes Esperados</label>
+                <input asp-for="Attendees" class="form-control" type="number" min="1" max="@zone?.Capacity" required />
+                <span asp-validation-for="Attendees" class="text-danger"></span>
+                <small class="form-text text-muted">Capacidad máxima: @zone?.Capacity</small>
+            </div>
+
+            <div class="form-group">
+                <label>Tipo de Evento</label>
+                <select asp-for="EventTypeId" asp-items="ViewBag.EventTypes" class="form-control" required>
+                    <option value="">-- Selecciona el tipo de evento --</option>
+                </select>
+                <span asp-validation-for="EventTypeId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label>Notas adicionales (opcional)</label>
+                <textarea asp-for="Notes" class="form-control" rows="3"></textarea>
+                <span asp-validation-for="Notes" class="text-danger"></span>
+            </div>
+
+            <div class="form-actions mt-4">
+                <a asp-controller="Zones" asp-action="Details" asp-route-id="@Model.ZoneId" class="btn-secondary">Cancelar</a>
+                <button type="submit" class="btn-primary">Confirmar Reserva</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

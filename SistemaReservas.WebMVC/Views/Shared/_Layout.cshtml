@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - SistemaReservas</title>
+    <!-- Use native CSS that we concatenated from React -->
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    @await RenderSectionAsync("Styles", required: false)
+</head>
+<body>
+    <nav class="navbar">
+        <a asp-controller="Home" asp-action="Index" class="navbar-brand">SistemaReservas</a>
+        <div class="navbar-links">
+            <a asp-controller="Zones" asp-action="Index">Zonas</a>
+            @if (User.Identity?.IsAuthenticated == true)
+            {
+                <a asp-controller="Reservations" asp-action="Index">Mis Reservas</a>
+                @if (User.IsInRole("Admin"))
+                {
+                    <a asp-controller="Admin" asp-action="Index">Admin</a>
+                }
+                <!-- Try to get the "fullName" claim from JWT, fallback to Name -->
+                <span class="navbar-user">Hola, @User.FindFirst("fullName")?.Value</span>
+
+                <!-- We use a hidden form to seamlessly Logout -->
+                <form asp-controller="Auth" asp-action="Logout" method="post" style="display:inline;">
+                    @Html.AntiForgeryToken()
+                    <button type="submit" class="btn-logout">Cerrar Sesión</button>
+                </form>
+            }
+            else
+            {
+                <a asp-controller="Auth" asp-action="Login">Iniciar Sesión</a>
+                <a asp-controller="Auth" asp-action="Register" class="btn-register">Registrarse</a>
+            }
+        </div>
+    </nav>
+    <div class="container main-container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <!-- Inject Notifications globally -->
+    <partial name="_NotificationPartial" />
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

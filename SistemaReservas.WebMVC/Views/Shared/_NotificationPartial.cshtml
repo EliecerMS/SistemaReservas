@@ -1,0 +1,21 @@
+@if (TempData["Notification"] != null)
+{
+    var notification = TempData["Notification"]?.ToString();
+    if (!string.IsNullOrEmpty(notification))
+    {
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                var notif = @Html.Raw(notification);
+                Swal.fire({
+                    icon: notif.icon,
+                    title: notif.title,
+                    text: notif.text,
+                    timer: notif.timer,
+                    showConfirmButton: false,
+                    position: 'top-end',
+                    toast: true
+                });
+            });
+        </script>
+    }
+}

@@ -1,0 +1,109 @@
+@model SistemaReservas.WebMVC.Models.ViewModels.ZonesIndexViewModel
+@{
+    ViewData["Title"] = "Zonas Disponibles";
+}
+
+<div class="zones-container">
+    <div class="zones-header">
+        <h2>Espacios Disponibles</h2>
+        <p>Encuentra el lugar perfecto para tu próximo evento o reunión.</p>
+    </div>
+
+    <div class="zones-grid">
+        @foreach (var zone in Model.Zones)
+        {
+            // buscar  imagen principal de la zona
+            var mainImage = zone.Images.FirstOrDefault(i => i.IsPrimary)?.ImageUrl
+            ?? zone.Images.FirstOrDefault()?.ImageUrl;
+
+
+            
+                <div class="zone-card card">
+                    @if (!string.IsNullOrEmpty(mainImage))
+                    {
+                        <img src="@mainImage" alt="@zone.Name" class="zone-image" loading="lazy" />
+                    }
+                    else
+                    {
+                        <div class="zone-placeholder">Sin imagen disponible</div>
+                    }
+
+                    <div class="card-body">
+                        <h5 class="card-title">@zone.Name</h5>
+                        <p class="card-text">@zone.Description</p>
+                        <p class="card-text">₡@zone.PricePerHour.ToString("N0") / hora</p>
+                        <div class="zone-meta">
+                            <span class="capacity">
+                                👤 Capacidad: @zone.Capacity personas
+                            </span>
+                        </div>
+
+                        @* tipos de evento etiquetas pequeñas *@
+                        <div class="zone-tags">
+                            @foreach (var tag in zone.EventTypes.Take(2))
+                            {
+                                <span class="mini-tag">@tag.Name</span>
+                            }
+                        </div>
+
+                        <a asp-action="Details" asp-route-id="@zone.Id" class="btn-primary">Ver detalles</a>
+                    </div>
+                </div>
+
+                <!--<div class="zone-content">
+                    <div class="zone-info">
+                        @*<h3>@zone.Name</h3>
+                         formato de moneda local (Colones) 
+                        <p class="zone-price">₡@zone.PricePerHour.ToString("N0") / hora</p>
+                    </div>
+                    <p class="zone-description">@zone.Description</p>
+
+                    <div class="zone-meta">
+                        <span class="capacity">
+                            👤 Capacidad: @zone.Capacity personas
+                        </span>
+                    </div>*@
+
+                    @* tipos de evento etiquetas pequeñas *@
+                    <div class="zone-tags">
+                       @*  @foreach (var tag in zone.EventTypes.Take(2))
+                        {
+                            <span class="mini-tag">@tag.Name</span>
+                        } 
+                    </div>
+
+                    <div class="zone-actions">
+                        <a asp-action="Details" asp-route-id="@zone.Id" class="btn-primary">Ver detalles</a>*@
+                    </div>
+                </div>-->
+            
+
+            
+        }
+    </div>
+
+    @* sistema de paginación compatible con PagedResponseDto *@
+    @if (Model.TotalPages > 1)
+    {
+        <div class="pagination-container">
+            <nav aria-label="Navegación de zonas">
+                <ul class="pagination">
+                    <li class="page-item @(Model.CurrentPage == 1 ? "disabled" : "")">
+                        <a class="page-link" asp-route-page="@(Model.CurrentPage - 1)">Anterior</a>
+                    </li>
+
+                    @for (int i = 1; i <= Model.TotalPages; i++)
+                    {
+                        <li class="page-item @(i == Model.CurrentPage ? "active" : "")">
+                            <a class="page-link" asp-route-page="@i">@i</a>
+                        </li>
+                    }
+
+                    <li class="page-item @(Model.CurrentPage == Model.TotalPages ? "disabled" : "")">
+                        <a class="page-link" asp-route-page="@(Model.CurrentPage + 1)">Siguiente</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    }
+</div>

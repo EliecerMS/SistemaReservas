@@ -1,0 +1,88 @@
+@model SistemaReservas.WebMVC.Models.ApiDTOs.ZoneDto
+@{
+    ViewData["Title"] = Model.Name;
+    // Buscamos la imagen principal o usamos la primera disponible
+    var mainImage = Model.Images.FirstOrDefault(img => img.IsPrimary)?.ImageUrl
+                 ?? Model.Images.FirstOrDefault()?.ImageUrl;
+
+    // Filtramos las imágenes secundarias (excluyendo la principal)
+    var secondaryImages = Model.Images.Where(img => img.ImageUrl != mainImage).Take(2).ToList();
+}
+
+<div class="zone-details-container">
+    <div class="zone-header">
+        <h1>@Model.Name</h1>
+        <p class="location-mock">📍 Ubicación excelente</p>
+    </div>
+
+    <div class="images-gallery">
+        @if (Model.Images.Any())
+        {
+            <div class="main-image-container">
+                <img src="@mainImage" alt="@Model.Name" class="main-image" loading="lazy" />
+            </div>
+
+            <div class="secondary-images">
+                @foreach (var img in secondaryImages)
+                {
+                    <img src="@img.ImageUrl" alt="Detalle de @Model.Name" class="secondary-image" loading="lazy" />
+                }
+            </div>
+        }
+        else
+        {
+            <div class="image-placeholder main-image">Sin imagen disponible</div>
+        }
+    </div>
+
+    <div class="details-content">
+        <div class="main-info">
+            <h2>Acerca de este espacio</h2>
+            <div class="host-info">
+                <span><strong>Capacidad máxima:</strong> @Model.Capacity personas</span>
+            </div>
+
+            <div class="description-section">
+                <p>@Model.Description</p>
+            </div>
+
+            <div class="event-types-section">
+                <h3>Eventos permitidos</h3>
+                <div class="tags-container">
+                    @foreach (var type in Model.EventTypes)
+                    {
+                        <span class="badge-event">@type.Name</span>
+                    }
+                </div>
+            </div>
+
+            <div class="amenities-section">
+                <h3>Lo que ofrece este lugar</h3>
+                <ul class="amenities-list">
+                    <li><span class="icon">📶</span> Wifi de alta velocidad</li>
+                    <li><span class="icon">❄️</span> Aire acondicionado</li>
+                    <li><span class="icon">🧹</span> Limpieza incluida</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="reservation-sidebar">
+            <div class="reservation-card">
+                <div class="price-header">
+                    <span class="price">₡@Model.PricePerHour.ToString("N0")</span>
+                    <span class="period">/ hora</span>
+                </div>
+
+                @if (User.Identity?.IsAuthenticated == true)
+                {
+                    <a asp-controller="Reservations" asp-action="Create" asp-route-id="@Model.Id" class="btn-reserve">Reservar ahora</a>
+                    <p class="no-charge-text">No se te cobrará todavía</p>
+                }
+                else
+                {
+                    <a asp-controller="Auth" asp-action="Login" asp-route-returnUrl="@Context.Request.Path" class="btn-reserve">Inicia sesión para reservar</a>
+                }
+            </div>
+        </div>
+    </div>
+</div>
