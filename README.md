@@ -1,6 +1,10 @@
 # SistemaReservas
 
-SistemaReservas is a full-stack venue reservation system featuring a dual-frontend architecture, this project is for demonstration purposes with near future implementation in the cloud. / SistemaReservas es un sistema de reserva de espacios full-stack con una arquitectura de doble interfaz. Este proyecto tiene fines demostrativos y se prevé su implementación en la nube en un futuro próximo. 
+Trabajo en progreso / Work in progress
+
+SistemaReservas es un sistema de reserva de espacios full-stack con una arquitectura de doble interfaz. Este proyecto tiene fines demostrativos y se prevé su implementación en la nube en un futuro próximo y servicio de almacenamiento de imagenes en contenedor de Azure(blob storage) o AWS S3. 
+
+SistemaReservas is a full-stack venue reservation system featuring a dual-frontend architecture, this project is for demonstration purposes with near future implementation in the cloud with storage image storage in Azure(blob storage) or AWS S3. 
 
 Mira el readme en ingles o español  / Take a look at the readme file in English or Spanish
 
