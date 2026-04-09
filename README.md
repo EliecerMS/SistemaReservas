@@ -6,6 +6,15 @@ SistemaReservas ha sido un trabajo en progreso de un sistema de reserva de espac
 
 SistemaReservas has been a work on progress to develop a full-stack venue reservation system to book spaces for different events, this project features a dual-frontend architecture, at the moment this project is for demonstration purposes with near future implementation in the cloud with storage image storage in Azure(blob storage) or AWS S3 y github actions.
 
+
+SistemaReservas es un sistema de reservas de locales full-stack que cuenta con una arquitectura de doble frontend:
+- **ASP.NET Core MVC** (nuevo) - Interfaz tradicional renderizada por servidor
+- **React + Vite** (original) - Interfaz SPA moderna
+
+SistemaReservas is a full-stack venue reservation system featuring a dual-frontend architecture:
+- **ASP.NET Core MVC** (new) - Traditional server-rendered UI
+- **React + Vite** (original) - Modern SPA UI
+
 Mira el readme en ingles o español  / Take a look at the readme file in English or Spanish
 
 <details>
