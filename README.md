@@ -2,9 +2,9 @@
 
 Trabajo en progreso / Work in progress
 
-SistemaReservas es un sistema de reserva de espacios full-stack con una arquitectura de doble interfaz. Este proyecto tiene fines demostrativos y se prevé su implementación en la nube en un futuro próximo y servicio de almacenamiento de imagenes en contenedor de Azure(blob storage) o AWS S3. 
+SistemaReservas ha sido un trabajo en progreso de un sistema de reserva de espacios para zonas donde se pueden realizar distintos eventos, es full-stack con una arquitectura de doble interfaz. De momento este proyecto tiene fines demostrativos y se prevé su implementación en la nube en un futuro próximo y servicio de almacenamiento de imagenes en contenedor de Azure(blob storage) o AWS S3 y github actions.
 
-SistemaReservas is a full-stack venue reservation system featuring a dual-frontend architecture, this project is for demonstration purposes with near future implementation in the cloud with storage image storage in Azure(blob storage) or AWS S3. 
+SistemaReservas has been a work on progress to develop a full-stack venue reservation system to book spaces for different events, this project features a dual-frontend architecture, at the moment this project is for demonstration purposes with near future implementation in the cloud with storage image storage in Azure(blob storage) or AWS S3 y github actions.
 
 Mira el readme en ingles o español  / Take a look at the readme file in English or Spanish
 
